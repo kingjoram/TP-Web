@@ -1,0 +1,167 @@
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.question {
+    height: 160px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.question-avatar {
+    height: 100px;
+    width: 100px;
+}
+.question-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.question-text {
+    margin-bottom: 5%;
+}
+.question-href {
+    text-decoration: none;
+}
+
+
+.one-question {
+    height: 250px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.one-question-avatar {
+    height: 150px;
+    width: 150px;
+}
+.one-question-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.answer {
+    height: 160px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.answer-avatar {
+    height: 100px;
+    width: 100px;
+}
+.answer-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.answer-text {
+    margin-bottom: 5%;
+}
+.answer-textbox {
+    height: 100px;
+    width: 100%;
+}
+.answer-button {
+    margin-top: 15px;
+}
+
+
+
+.search-form {
+    margin-right: 0.5rem !important;
+}
+
+.logo {
+    height: 30px;
+    width: 30px;
+}
+.logo > img {
+    height: 100%;
+    width: 100%;
+}
+
+.tags {
+    font-size: 20px;
+}
+
+.likes {
+    padding: 5px;
+    margin: 5px;
+}
+.like-btn {
+}
+
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: black;
+}
+
+
+.ask-question-title {
+    width: 80%;
+    height: 35px;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.ask-question-text{
+    width: 80%;
+    height: 500px;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.ask-question-tags {
+    width: 80%;
+    height: 30px;
+    resize: none;
+}
+
+.ask-question {
+    padding-top: 10px;
+}
+
+.ask-btn {
+    margin-top: 20px;
+}
+
+
+
+.login {
+    width: 25%;
+    margin-bottom: 10px;
+}
+.password {
+    width: 25%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.login-text {
+    margin-bottom: 30px;
+}
+
+.registration {
+    width: 40%;
+    margin-bottom: 30px;
+}
+.registration-text {
+    margin-bottom: 37px;
+}
+.register-button {
+    margin-top: 50px;
+}
+
+.wrong-password-text {
+    display: none;
+}
+
