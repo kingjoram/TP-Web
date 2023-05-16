@@ -68,19 +68,19 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <form class="d-flex" role="search">
-        <a class="logo" href="index.html">
+        <a class="logo" href="{% url 'index' %}">
           <img src="{% static 'img/logo.png' %}" alt="logo">
         </a>
-      <a class="navbar-brand" href="index.html">Хочу Знать</a>
+      <a class="navbar-brand" href="{% url 'index' %}">Хочу Знать</a>
       </form>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
-        <a class="btn btn-outline-success" href="ask.html">Ask!</a>
+        <a class="btn btn-outline-success" href="{% url 'ask' %}">Ask!</a>
       </form>
       <form class="d-flex" role="search">
-        <a class="navbar-brand" href="login.html">log in</a>
-        <a class="navbar-brand" href="signup.html">register</a>
+        <a class="navbar-brand" href="{% url 'login' %}">log in</a>
+        <a class="navbar-brand" href="{% url 'signup' %}">register</a>
       </form>
 
     </div>
