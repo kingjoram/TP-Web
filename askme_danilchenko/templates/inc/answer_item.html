@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="answer">
+  <div class="row">
+    <div class="col-3" align="center" >
+      <div class="answer-avatar">
+        <img src="{% static 'img/Avatar3.png' %}" alt="avatar">
+      </div>
+      <form class="likes">
+        <span >
+          <output >3</output>
+          <button class="like-btn">like</button>
+        </span>
+      </form>
+    </div>
+    <div class="col-6">
+          <div class="answer-text"> {{ answer.text }} </div>
+          <div>
+            <input type="checkbox"> Correct!
+          </div>
+    </div>
+  </div>
+</div>

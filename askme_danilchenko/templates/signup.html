@@ -1,0 +1,35 @@
+{% extends "inc/base.html" %}
+
+{% block content %}
+
+
+<h1>Registration</h1>
+<p class="wrong-password-text" displ>Error</p>
+
+<div class="row">
+  <div class="col-3">
+    <p class="registration-text">Login</p>
+    <p class="registration-text">Email</p>
+    <p class="registration-text">Nickname</p>
+    <p class="registration-text">Password</p>
+    <p class="registration-text">Repeat password</p>
+    <p class="registration-text">Upload avatar</p>
+  </div>
+
+  <div class="col-9">
+    <div><input class="registration" placeholder="Enter your login"></div>
+    <div><input class="registration" placeholder="Enter your email"></div>
+    <div><input class="registration" placeholder="Enter your nickname"></div>
+    <div><input class="registration" placeholder="Enter your password" type="password"></div>
+    <div><input class="registration" placeholder="Repeat the password" type="password"></div>
+    <div>
+      <input disabled>
+      <button>choose</button>
+    </div>
+    <div class="register-button"><button>Register!</button></div>
+  </div>
+
+</div>
+
+
+{% endblock content %}

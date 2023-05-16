@@ -1,0 +1,27 @@
+{% load static %}
+
+<div class="question">
+  <div class="row">
+    <div class="col-3" align="center" >
+      <div class="question-avatar" >
+        <img src="{% static 'img/AvatarQ.png' %}" alt="avatar">
+      </div>
+      <form class="likes">
+        <span >
+          <output >10</output>
+          <button class="like-btn">like</button>
+        </span>
+      </form>
+    </div>
+    <div class="col-6">
+        <h2><a class="question-href" href="{% url 'question' question.id %}"> {{ question.title }} </a></h2>
+          <div class="question-text"> {{ question.text }} </div>
+          <div class="row">
+            <div class="col-4">Answers(3)</div>
+            <div class="col-8">
+                Tags: <a href="#">Games</a>, <a href="#">Dota2</a>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
