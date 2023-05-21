@@ -11,16 +11,16 @@
       </div>
       <form class="likes">
         <span >
-          <output >10</output>
+          <output >{{likes_count}}</output>
           <button class="like-btn">like</button>
         </span>
       </form>
     </div>
     <div class="col-6">
-      <h2>Question {{ question_context.question.id }}</h2>
-      <div class="question-text">{{ question_context.question.text }}</div>
+      <h2>Question {{ question_title }}</h2>
+      <div class="question-text">{{ question_text }}</div>
       <div>
-        Tags: <a href="#">Games</a>, <a href="#">Dota2</a>
+        Tags: <a href="#">{{ tags }}</a>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
 
 <hr>
 
-{% for answer in answer_context.answers %}
+{% for answer in answers %}
   {% include "inc/answer_item.html" %}
 {% endfor %}
 

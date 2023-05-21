@@ -1,16 +1,28 @@
 from django.shortcuts import render
-from . import models
+from .models import Questions, Answers, Tags, Users
 
 
 def index(request):
-    context = {'questions': models.QUESTIONS}
-    return render(request, 'index.html', context)
+    questions = Questions.objects.all()
+    return render(request, 'index.html', {'questions': questions})
 
 
 def question(request, question_id):
-    answer_context = {'answers': models.ANSWERS}
-    question_context = {'question': models.QUESTIONS[question_id]}
-    return render(request, 'question.html', {'question_context': question_context, 'answer_context': answer_context})
+    this_question = Questions.objects.filter(id=question_id)
+
+    question_title = this_question[0].title
+    question_text = this_question[0].text
+    likes_count = this_question[0].likes_count
+    tags = this_question[0].tags
+    answers = Answers.objects.all()
+
+    context = \
+        {'question_title': question_title,
+         'question_text': question_text,
+         'likes_count': likes_count,
+         'answers': answers,
+         'tags': tags}
+    return render(request, 'question.html', context)
 
 
 def ask(request):
