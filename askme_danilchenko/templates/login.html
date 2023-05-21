@@ -1,23 +1,11 @@
 {% extends "inc/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
-
-
-<h1>Log in</h1>
-<p class="wrong-password-text" displ>Wrong password</p>
-<div class="row">
-  <div class="col-2">
-    <p class="login-text">Login</p>
-    <p>Password</p>
-  </div>
-
-
-  <div class="col-10">
-    <div><input class="login" type="text" placeholder="Enter your login here"></div>
-    <div><input class="password" type="password" placeholder="Enter password"></div>
-    <div><button>Log in!</button></div>
-    <div><a href="{% url 'signup' %}">Create a new account</a> </div>
-  </div>
-</div>
-
+  <h1>Log in</h1>
+  <form novalidate action="/login/" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 {% endblock content %}

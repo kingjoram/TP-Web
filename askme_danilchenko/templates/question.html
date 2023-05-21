@@ -19,8 +19,10 @@
     <div class="col-6">
       <h2>Question {{ question_title }}</h2>
       <div class="question-text">{{ question_text }}</div>
-      <div>
-        Tags: <a href="#">{{ tags }}</a>
+      <div> Tags:
+        {% for tag in tags %}
+          <a href="#">{{ tag.name }}</a>
+        {% endfor %}
       </div>
     </div>
   </div>

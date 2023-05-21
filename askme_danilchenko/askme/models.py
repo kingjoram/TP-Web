@@ -45,7 +45,6 @@ class Answers(models.Model):
 
 class Tags(models.Model):
     name = models.CharField(max_length=20)
-
     def __str__(self):
         return self.name
 
@@ -54,4 +53,3 @@ class Users (User):
     login = User.username
     password = User.password
     avatar = models.ImageField()
-    objects = UserManager
