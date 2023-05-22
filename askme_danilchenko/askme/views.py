@@ -2,20 +2,27 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.forms import model_to_dict
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 
-from .forms import LoginForm
-from .models import Questions, Answers, Tags, Users
+from .forms import LoginForm, SettingsForm
+from .models import Questions, Answers, Tags, Profile
 
 
 def index(request):
+    user_profile = Profile.objects.filter(user=request.user)
+    user_avatar = user_profile[0].avatar
     questions = Questions.objects.all()
-    return render(request, 'index.html', {'questions': questions})
+    return render(request, 'index.html', {'questions': questions, 'avatar': user_avatar})
 
 
 def question(request, question_id):
     this_question = Questions.objects.filter(id=question_id)
+
+    user_profile = Profile.objects.filter(user=request.user)
+    user_avatar = user_profile[0].avatar
 
     question_title = this_question[0].title
     question_text = this_question[0].text
@@ -28,15 +35,32 @@ def question(request, question_id):
          'question_text': question_text,
          'likes_count': likes_count,
          'answers': answers,
-         'tags': tags}
+         'tags': tags,
+         'avatar': user_avatar}
     return render(request, 'question.html', context)
 
 
+@login_required(login_url="login", redirect_field_name="continue")
+@require_http_methods(['GET', 'POST'])
 def ask(request):
-    return render(request, 'ask.html')
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    user_profile = Profile.objects.filter(user=request.user)
+    user_avatar = user_profile[0].avatar
+    context = {
+        'avatar': user_avatar
+    }
+    return render(request, 'ask.html', context)
 
 
 def log_in(request):
+    user_profile = Profile.objects.filter(user=request.user)
+    user_avatar = user_profile[0].avatar
+
+    if request.user.is_authenticated:
+        return redirect('settings')
+
     if request.method == 'GET':
         login_form = LoginForm()
     elif request.method == 'POST':
@@ -48,11 +72,22 @@ def log_in(request):
                 return redirect(reverse('index'))
             login_form.add_error(None, "Invalid username or password")
 
-    return render(request, 'login.html', context={'form': login_form})
+    context = {
+        'form': login_form,
+        'avatar': user_avatar,
+        'profile': user_profile
+    }
+
+    return render(request, 'login.html', context)
 
 
 def signup(request):
-    return render(request, 'signup.html')
+    user_profile = Profile.objects.filter(user=request.user)
+    user_avatar = user_profile[0].avatar
+    context = {
+        'avatar': user_avatar
+    }
+    return render(request, 'signup.html', context)
 
 
 def tag_questions(request, tag_name):
@@ -60,3 +95,21 @@ def tag_questions(request, tag_name):
     questions = Questions.objects.filter(tags=tag[0])
     context = {'tag': tag[0], 'tag_questions': questions}
     return render(request, 'tag_questions.html', context)
+
+
+@login_required(login_url="login", redirect_field_name="continue")
+@require_http_methods(['GET', 'POST'])
+def settings(request):
+    if request.method == 'GET':
+        data = model_to_dict(request.user)
+        form = SettingsForm(initial=data)
+    else:
+        form = SettingsForm(request.POST, files=request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+
+    context = {
+        "form": form
+    }
+
+    return render(request, 'settings.html', context)

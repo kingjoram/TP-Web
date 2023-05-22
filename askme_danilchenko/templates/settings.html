@@ -1,0 +1,22 @@
+{% extends "inc/base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+<div class="col-7 mt-5">
+  <h3 style="margin-bottom: 30 px">Settings</h3>
+  <form action="/settings/" method="Post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <br><br>
+    <div>
+      <img class="my-user-avatar" src="{{ user.profile.avatar.url }}">
+    </div>
+  </form>
+</div>
+
+
+{% endblock content %}

@@ -1,26 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-QUESTIONS = [
-    {
-        'id': i,
-        'title': f'Question {i}',
-        'text': f'Text {i}'
-    } for i in range(10)
-]
-
-ANSWERS = [
-    {
-        'id': i,
-        'title': f'Answer {i}',
-        'text': f'Text {i}'
-    } for i in range(5)
-]
-
-
-class UserManager(models.Manager):
-    pass
-
 
 class QuestionManager(models.Manager):
     def get_question(self, id):
@@ -32,14 +12,14 @@ class Questions(models.Model):
     text = models.TextField()
     likes_count = models.IntegerField(default=0)
     ask_time = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey('Users', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     object = QuestionManager
     tags = models.ManyToManyField('Tags')
 
 class Answers(models.Model):
     is_correct = models.BooleanField(default=False)
     question = models.ForeignKey('Questions', on_delete=models.PROTECT)
-    user = models.ForeignKey('Users', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     text = models.TextField(default="")
 
 
@@ -49,7 +29,6 @@ class Tags(models.Model):
         return self.name
 
 
-class Users (User):
-    login = User.username
-    password = User.password
-    avatar = models.ImageField()
+class Profile(models.Model):
+    avatar = models.ImageField(blank=True, default='default_avatar.jpg', upload_to='avatars/%Y/%m/%d/')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
