@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Sticky Footer Navbar Template · Bootstrap v5.3</title>
+    <title>Я хз что это значит!</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/my.css' %}">
   </head>
@@ -80,6 +80,7 @@
       </form>
       <form class="d-flex" role="search">
         <img class="logo" src="{{ avatar.url }} ">
+        <a class="navbar-brand" href="{% url 'logout' %}">logout</a>
         <a class="navbar-brand" href="{% url 'login' %}">log in</a>
         <a class="navbar-brand" href="{% url 'signup' %}">register</a>
       </form>

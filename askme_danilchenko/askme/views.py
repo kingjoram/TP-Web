@@ -2,27 +2,41 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.core.paginator import Paginator
 from django.forms import model_to_dict
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth import logout
 
 from .forms import LoginForm, SettingsForm
 from .models import Questions, Answers, Tags, Profile
 
 
 def index(request):
-    user_profile = Profile.objects.filter(user=request.user)
-    user_avatar = user_profile[0].avatar
+    user_avatar = 0
+    if request.user.is_authenticated:
+        user_profile = Profile.objects.filter(user=request.user)
+        user_avatar = user_profile[0].avatar
+
     questions = Questions.objects.all()
-    return render(request, 'index.html', {'questions': questions, 'avatar': user_avatar})
+    paginator = Paginator(questions, 10)
+
+    page_number = request.GET.get('page')
+    page_objects = paginator.get_page(page_number)
+    return render(request, 'index.html', {'questions': page_objects, 'avatar': user_avatar})
 
 
 def question(request, question_id):
     this_question = Questions.objects.filter(id=question_id)
+    if not this_question:
+        return HttpResponseNotFound()
 
-    user_profile = Profile.objects.filter(user=request.user)
-    user_avatar = user_profile[0].avatar
+    user_avatar = 0
+    if request.user.is_authenticated:
+        user_profile = Profile.objects.filter(user=request.user)
+        user_avatar = user_profile[0].avatar
 
     question_title = this_question[0].title
     question_text = this_question[0].text
@@ -55,9 +69,6 @@ def ask(request):
 
 
 def log_in(request):
-    user_profile = Profile.objects.filter(user=request.user)
-    user_avatar = user_profile[0].avatar
-
     if request.user.is_authenticated:
         return redirect('settings')
 
@@ -74,16 +85,20 @@ def log_in(request):
 
     context = {
         'form': login_form,
-        'avatar': user_avatar,
-        'profile': user_profile
     }
 
     return render(request, 'login.html', context)
 
 
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
+
 def signup(request):
-    user_profile = Profile.objects.filter(user=request.user)
-    user_avatar = user_profile[0].avatar
+    user_avatar = 0
+    if request.user.is_authenticated:
+        user_profile = Profile.objects.filter(user=request.user)
+        user_avatar = user_profile[0].avatar
     context = {
         'avatar': user_avatar
     }

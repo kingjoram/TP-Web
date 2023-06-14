@@ -18,7 +18,7 @@ class SettingsForm(forms.ModelForm):
         user = super().save(commit)
 
         profile = user.profile
-        if profile.avatar:
+        if profile.avatar and self.cleaned_data['avatar']:
             profile.avatar = self.cleaned_data['avatar']
             profile.save()
 

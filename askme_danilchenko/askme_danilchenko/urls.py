@@ -29,10 +29,11 @@ urlpatterns = [
     path('login/', views.log_in, name="login"),
     path('signup/', views.signup, name="signup"),
     path('tag/<str:tag_name>', views.tag_questions, name="tag_questions"),
-    path('settings/', views.settings, name="settings")
+    path('settings/', views.settings, name="settings"),
+    path('logout/', views.logout_view, name="logout"),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

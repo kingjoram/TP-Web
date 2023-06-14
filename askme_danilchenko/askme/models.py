@@ -30,5 +30,5 @@ class Tags(models.Model):
 
 
 class Profile(models.Model):
-    avatar = models.ImageField(blank=True, default='default_avatar.jpg', upload_to='avatars/%Y/%m/%d/')
+    avatar = models.ImageField(blank=True, null=True, default='default_avatar.jpg', upload_to='avatars/%Y/%m/%d/')
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
