@@ -24,6 +24,13 @@ def index(request):
     paginator = Paginator(questions, 10)
 
     page_number = request.GET.get('page')
+
+    if page_number != None:
+        if not page_number.isnumeric():
+            return HttpResponseNotFound()
+        if int(page_number) < 0:
+            return HttpResponseNotFound()
+
     page_objects = paginator.get_page(page_number)
     return render(request, 'index.html', {'questions': page_objects, 'avatar': user_avatar})
 
