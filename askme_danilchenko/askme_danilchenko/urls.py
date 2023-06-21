@@ -30,7 +30,11 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('tag/<str:tag_name>', views.tag_questions, name="tag_questions"),
     path('settings/', views.settings, name="settings"),
+    path('hot/', views.hot, name='hot'),
     path('logout/', views.logout_view, name="logout"),
+    path('like/question', views.like_question, name='like_q'),
+    path('like/answer', views.like_answer, name='like_a'),
+    path('answer/correct', views.correct, name='correct'),
 ]
 
 if settings.DEBUG:

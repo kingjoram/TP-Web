@@ -1,22 +1,14 @@
 {% extends "inc/base.html" %}
 
+{% load static %}
+{% load bootstrap4 %}
+
 {% block content %}
+<h2 class="mt-5">Question</h2>
+<form action="/ask/" method="post">
+    {% bootstrap_form form %}
+    {% csrf_token %}
 
-<h1 class="mt-5">New question</h1>
-<div class="row">
-  <div class="col-2">
-    <div class="ask-question-title ask-question">Title</div>
-    <div class="ask-question-text ask-question" >Text</div>
-    <div class="ask-question-tags ask-question">Tags</div>
-  </div>
-  <div class="col-10">
-    <form>
-      <textarea class="ask-question-title" maxlength="70" placeholder="How to play dota2?" required></textarea>
-      <textarea class="ask-question-text" maxlength="400" placeholder="Really how?" required></textarea>
-      <textarea class="ask-question-tags" maxlength="30" placeholder="Valve, dota2" required></textarea>
-      <div class="ask-btn"><button>Ask!</button></div>
-    </form>
-  </div>
-</div>
-
+    <button type="submit" class="btn btn-primary">Ask!</button>
+</form>
 {% endblock content %}

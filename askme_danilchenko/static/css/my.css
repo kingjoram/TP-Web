@@ -101,9 +101,16 @@ main > .container {
     padding: 5px;
     margin: 5px;
 }
-.like-btn {
+.like-btn::before {
+    content: attr(data-count);
 }
 
+.like::before {
+    content: attr(data-count);
+}
+.answer-like-btn::before {
+    content: attr(data-count);
+}
 
 hr {
     border: none;

@@ -1,27 +1,21 @@
 {% extends "inc/base.html" %}
-
 {% load static %}
+{% load bootstrap4 %}
 {% block content %}
 
 <div class="one-question">
   <div class="row">
     <div class="col-3" align="center" >
       <div class="one-question-avatar" >
-        <img src="{% static 'img/AvatarQ.png' %}" alt="avatar">
+        <img src="{{ question.get_author.avatar.url }}" alt="avatar">
       </div>
-      <form class="likes">
-        <span >
-          <output >{{likes_count}}</output>
-          <button class="like-btn">like</button>
-        </span>
-      </form>
     </div>
     <div class="col-6">
-      <h2>Question {{ question_title }}</h2>
-      <div class="question-text">{{ question_text }}</div>
+      <h2>Question {{ question.title }}</h2>
+      <div class="question-text">{{ question.text }}</div>
       <div> Tags:
         {% for tag in tags %}
-          <a href="#">{{ tag.name }}</a>
+          <a href="{% url 'tag_questions' tag.name %}">{{ tag.name }}</a>
         {% endfor %}
       </div>
     </div>
@@ -36,11 +30,19 @@
 
 <hr>
 
-<div>
-  <input class="answer-textbox" type="text" placeholder="Enter your answer">
-</div>
-<div>
-  <button class="answer-button">Answer</button>
-</div>
+{% include "inc/answer_paginator.html" %}
+
+
+<form action="{% url 'question' question.id %}" method="post">
+  <div class="form-group green-border-focus mt-5">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button type="submit" class="btn btn-outline-success mb-5" id="submit_answer_button">Answer</button>
+  </div>
+</form>
+
+
+<script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
 {% endblock content %}

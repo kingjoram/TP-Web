@@ -1,5 +1,7 @@
 {% extends "inc/base.html" %}
 
+{% load static %}
+
 {% block content %}
 
 <h1 class="mt-5">New questions</h1>
@@ -9,5 +11,10 @@
 {% endfor %}
 
 {% include "inc/paginator.html" %}
+
+
+<script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
 
 {% endblock content %}

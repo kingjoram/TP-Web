@@ -74,12 +74,12 @@
       <a class="navbar-brand" href="{% url 'index' %}">Хочу Знать</a>
       </form>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search-text">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
         <a class="btn btn-outline-success" href="{% url 'ask' %}">Ask!</a>
       </form>
       <form class="d-flex" role="search">
-        <img class="logo" src="{{ avatar.url }} ">
+        <img class="logo" src="{{ avatar.url }}">
         <a class="navbar-brand" href="{% url 'logout' %}">logout</a>
         <a class="navbar-brand" href="{% url 'login' %}">log in</a>
         <a class="navbar-brand" href="{% url 'signup' %}">register</a>
@@ -99,12 +99,20 @@
 
       </div>
       <div class="col-3">
+        <h2><a href="{% url 'hot' %}">Hot questions</a></h2>
+
         <h2>Popular Tags</h2>
         <span class="tags">
-          <a href="#">Games</a>
-          <a href="#">Dota2</a>
-          <a href="#">2023</a>
-          <a href="#">Valve</a>
+          {% for tag in popular_tags %}
+            <a href="{% url 'tag_questions' tag.name %}">{{ tag.name }}</a>
+          {% endfor %}
+        </span>
+
+        <h2>Top Users</h2>
+        <span class="tags">
+          {% for top_user in top_users %}
+            {{ top_user.get_name }}
+          {% endfor %}
         </span>
       </div>
     </div>

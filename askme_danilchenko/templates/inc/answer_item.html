@@ -4,20 +4,46 @@
   <div class="row">
     <div class="col-3" align="center" >
       <div class="answer-avatar">
-        <img src="{% static 'img/Avatar3.png' %}" alt="avatar">
+        <img src="{{ answer.get_author.avatar.url }}" alt="avatar">
       </div>
-      <form class="likes">
-        <span >
-          <output >3</output>
-          <button class="like-btn">like</button>
-        </span>
-      </form>
+       <button class="counter like_answer" data-id="{{ answer.id }}">
+           <span>{{ answer.likes }}</span>
+        </button>
     </div>
     <div class="col-6">
           <div class="answer-text"> {{ answer.text }} </div>
-          <div>
-            <input type="checkbox"> Correct!
-          </div>
+
+
+          {% if request.user.is_authenticated %}
+            {% if answer.question.get_author_id == request.user.id %}
+                <div class="form-check mt-2">
+                    {% if answer.is_solution %}
+                        <input class="form-check-input correct_answer" type="checkbox" data-id="{{ answer.id }}" checked>
+                        <label class="form-check-label">Correct</label>
+
+                    {% else %}
+                        <input class="form-check-input correct_answer" type="checkbox" data-id="{{ answer.id }}">
+                        <label class="form-check-label">Correct</label>
+                    {% endif %}
+
+                </div>
+            {% endif %}
+          {% endif %}
+
+
+        {% if not request.user.is_authenticated or answer.question.get_author_id != request.user.id %}
+            <div class="form-check mt-2">
+                {% if answer.is_solution %}
+                    <input class="form-check-input correct_answer" type="checkbox" data-id="{{ answer.id }}" checked disabled>
+                    <label class="form-check-label">Correct</label>
+
+                {% else %}
+                    <input class="form-check-input correct_answer" type="checkbox" data-id="{{ answer.id }}" disabled>
+                    <label class="form-check-label">Correct</label>
+                {% endif %}
+            </div>
+        {% endif %}
+
     </div>
   </div>
 </div>
